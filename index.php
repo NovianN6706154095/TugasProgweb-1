@@ -1,25 +1,25 @@
 <?php  session_start();
 
-include "conn.php";
+include "conn.php"; //cek koneksi kedatabase
 
 if (isset($_POST['login'])){
-	//koneksi terpusat
+	//koneksi terpusat pada login
 
-	$username=$_POST['username'];
-	$password=md5($_POST['password']);
-	$domain=$_POST['domain'];
+	$username=$_POST['username'];// untuk memberikan username pada login
+	$password=md5($_POST['password']); //untuk memberikan passord pada login
+	$domain=$_POST['domain']; // untuk memberikan nama domain
 	
-	if($domain=="admin"){
+	if($domain=="admin"){//domain untuk admin
 		$query=mysql_query("select * from user_admin where username='$username' and password='$password'");
 		$cek=mysql_num_rows($query);
 		$row=mysql_fetch_array($query);
 		$id_admin=$row['id_admin'];
 		
 		if($cek){
-			$_SESSION['username']=$username;
-			$_SESSION['id_admin']=$id_admin;
-			$_SESSION['domain']=$domain;
-			$_SESSION['waktu']=date("Y-m-d H:i:s");
+			$_SESSION['username']=$username; //untuk mengecek username apakah sudah terdaftar apa belum
+			$_SESSION['id_admin']=$id_admin; //untuk mengecek id admin
+			$_SESSION['domain']=$domain; //untuk mengecek nama domain
+			$_SESSION['waktu']=date("Y-m-d H:i:s"); //untuk mengecek waktu sekarang
 			
 			?><script language="javascript">document.location.href="home.php";</script><?php
 			
@@ -28,7 +28,7 @@ if (isset($_POST['login'])){
 		}	
 	}
 	
-	if($domain=="guru"){
+	if($domain=="guru"){ //untuk user guru
 		$query=mysql_query("select * from data_guru where username='$username' and password='$password'");
 		$cek=mysql_num_rows($query);
 		$row=mysql_fetch_array($query);
